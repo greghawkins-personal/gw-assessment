@@ -5,9 +5,26 @@
 
 declare module "sst" {
   export interface Resource {
-    "MyWeb": {
+    "Frontend": {
       "type": "sst.aws.React"
       "url": string
+    }
+    "IdentityPool": {
+      "id": string
+      "type": "sst.aws.CognitoIdentityPool"
+    }
+    "Session": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
+    "UserPool": {
+      "id": string
+      "type": "sst.aws.CognitoUserPool"
+    }
+    "UserPoolClient": {
+      "id": string
+      "secret": string
+      "type": "sst.aws.CognitoUserPoolClient"
     }
   }
 }
