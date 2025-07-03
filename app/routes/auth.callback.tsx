@@ -12,9 +12,9 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   console.log("calling set on session");
   session.set("user", user);
   console.log("calling commit on session");
-  // const headers = new Headers({ "Set-Cookie": await commitSession(session) });
+  const headers = new Headers({ "Set-Cookie": await commitSession(session) });
 
-  // return redirect("/", { headers });
+  return redirect("/", { headers });
 
   // headers: {
   //       "Set-Cookie": await commitSession(session),
@@ -31,21 +31,21 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   // console.log(`storedUser: ${JSON.stringify(storedUser)}`);
 
   // return { user, headers };
-  return data(user, {
-    headers: {
-      "Set-Cookie": await commitSession(session),
-    },
-  });
+  // return data(user, {
+  //   headers: {
+  //     "Set-Cookie": await commitSession(session),
+  //   },
+  // });
 };
 
-const CallBackPage = ({ loaderData }: Route.ComponentProps) => {
-  const user = loaderData;
-  return (
-    <>
-      <div>{user.Username}</div>
-      {/* <div>{user.storedUser.Username}</div> */}
-    </>
-  );
-};
+// const CallBackPage = ({ loaderData }: Route.ComponentProps) => {
+//   const user = loaderData;
+//   return (
+//     <>
+//       <div>{user.Username}</div>
+//       {/* <div>{user.storedUser.Username}</div> */}
+//     </>
+//   );
+// };
 
-export default CallBackPage;
+// export default CallBackPage;

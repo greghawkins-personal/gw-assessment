@@ -4,7 +4,7 @@ import { createDynamoDBTableSessionStorage } from "./utils/session/database";
 export const sessionCookie = createCookie("__session", {
   secrets: ["r3m1xr0ck5"],
   maxAge: 60 * 60 * 24 * 7, // 1 week
-  path: "/auth",
+  path: "/",
   httpOnly: true,
   sameSite: "lax",
   secure: process.env.NODE_ENV === "production",
