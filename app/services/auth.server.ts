@@ -25,7 +25,6 @@ authenticator.use(
     },
     async ({ tokens, request }) => {
       const AccessToken = tokens.accessToken();
-      //   console.log(tokens);
       return await cognitoClient.send(new GetUserCommand({ AccessToken }));
     }
   ),

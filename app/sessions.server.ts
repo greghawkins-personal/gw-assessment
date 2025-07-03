@@ -12,6 +12,3 @@ export const sessionCookie = createCookie("__session", {
 
 export const { getSession, commitSession, destroySession } =
   createDynamoDBTableSessionStorage({ cookie: sessionCookie });
-
-// export const { getSession, commitSession, destroySession } =
-//   createDynamoDBTableSessionStorage();

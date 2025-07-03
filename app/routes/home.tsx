@@ -6,9 +6,7 @@ import { authenticator } from "~/services/auth.server";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   let user = await authenticate(request);
-  console.log(`home user: ${JSON.stringify(user)}`);
   if (!user) await authenticator.authenticate("cognito", request);
-  // let user = await authenticator.authenticate("cognito", request);
 };
 
 export function meta({}: MetaArgs) {

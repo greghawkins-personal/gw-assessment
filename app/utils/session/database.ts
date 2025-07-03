@@ -25,26 +25,21 @@ export const createDynamoDBTableSessionStorage = ({
   return createSessionStorage({
     cookie,
     async createData(data, expires) {
-      console.log("create data");
-      console.log(data);
-      console.log("cookie");
-      console.log(cookie?.name);
       const session = {
         Username: data.user.Username,
         ...data,
         expires: expires?.toISOString(),
       };
-      const putItemOutput = await client.send(
+      await client.send(
         new PutItemCommand({
           TableName: Resource.Session.name,
           Item: marshall(session, { removeUndefinedValues: true }),
         })
       );
-      //   console.log(putItemOutput);
+
       return data.user.Username;
     },
     async readData(id) {
-      console.log(`reading session with id: ${id}`);
       return await client.send(
         new GetItemCommand({
           TableName: Resource.Session.name,
