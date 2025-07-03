@@ -28,7 +28,7 @@ export const createDynamoDBTableSessionStorage = ({
       const session = {
         Username: data.user.Username,
         ...data,
-        expires: expires?.toISOString(),
+        expires: expires ? expires?.getTime() / 1000 : undefined,
       };
       await client.send(
         new PutItemCommand({

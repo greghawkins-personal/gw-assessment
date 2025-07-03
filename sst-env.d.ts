@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "CookieSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "Frontend": {
       "type": "sst.aws.React"
       "url": string

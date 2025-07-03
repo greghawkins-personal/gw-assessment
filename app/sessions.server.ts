@@ -1,8 +1,9 @@
 import { createCookie } from "react-router";
 import { createDynamoDBTableSessionStorage } from "./utils/session/database";
+import { Resource } from "sst";
 
 export const sessionCookie = createCookie("__session", {
-  secrets: ["r3m1xr0ck5"],
+  secrets: [Resource.CookieSecret.value],
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: "/",
   httpOnly: true,
