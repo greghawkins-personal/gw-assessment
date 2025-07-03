@@ -1,7 +1,7 @@
 import { authenticator } from "~/services/auth.server";
 import type { Route } from "./+types/auth.callback";
 import { redirect } from "react-router";
-import { commitSession, getSession } from "~/sessions.server";
+import { commitSession, getSession } from "~/services/sessions.server";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   let user = await authenticator.authenticate("cognito", request);

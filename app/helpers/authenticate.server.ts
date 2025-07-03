@@ -1,4 +1,4 @@
-import { getSession } from "~/sessions.server";
+import { getSession } from "~/services/sessions.server";
 
 export const authenticate = async (request: Request) => {
   const cookieHeader = request.headers.get("Cookie");

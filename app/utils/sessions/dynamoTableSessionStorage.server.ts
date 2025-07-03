@@ -1,10 +1,6 @@
 import { createSessionStorage } from "react-router";
 import { Resource } from "sst";
-import type {
-  SessionData,
-  SessionStorage,
-  SessionIdStorageStrategy,
-} from "react-router";
+import type { SessionIdStorageStrategy } from "react-router";
 import {
   DeleteItemCommand,
   DynamoDBClient,
@@ -15,13 +11,13 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 
 const client = new DynamoDBClient();
 
-interface ArcTableSessionStorageOptions {
+interface DynamoTableSessionStorageOptions {
   cookie?: SessionIdStorageStrategy["cookie"];
 }
 
-export const createDynamoDBTableSessionStorage = ({
+export const createDynamoTableSessionStorage = ({
   cookie,
-}: ArcTableSessionStorageOptions) => {
+}: DynamoTableSessionStorageOptions) => {
   return createSessionStorage({
     cookie,
     async createData(data, expires) {

@@ -1,5 +1,5 @@
 import { createCookie } from "react-router";
-import { createDynamoDBTableSessionStorage } from "./utils/session/database";
+import { createDynamoTableSessionStorage } from "../utils/sessions/dynamoTableSessionStorage.server";
 import { Resource } from "sst";
 
 export const sessionCookie = createCookie("__session", {
@@ -12,4 +12,4 @@ export const sessionCookie = createCookie("__session", {
 });
 
 export const { getSession, commitSession, destroySession } =
-  createDynamoDBTableSessionStorage({ cookie: sessionCookie });
+  createDynamoTableSessionStorage({ cookie: sessionCookie });

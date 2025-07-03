@@ -21,9 +21,9 @@ authenticator.use(
         "https://eu-west-2ybro65asr.auth.eu-west-2.amazoncognito.com/oauth2/authorize",
       tokenEndpoint:
         "https://eu-west-2ybro65asr.auth.eu-west-2.amazoncognito.com/oauth2/token",
-      redirectURI: "http://localhost:5173/auth/callback",
+      redirectURI: `http://localhost:5173/auth/callback`,
     },
-    async ({ tokens, request }) => {
+    async ({ tokens }) => {
       const AccessToken = tokens.accessToken();
       return await cognitoClient.send(new GetUserCommand({ AccessToken }));
     }
