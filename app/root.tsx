@@ -1,4 +1,5 @@
 import {
+  BrowserRouter,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -9,6 +10,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { SSRProvider } from "react-bootstrap";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -19,7 +22,11 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:300,400,600,700,800",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css",
   },
 ];
 
@@ -42,7 +49,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    // <SSRProvider>
+    <div className="App container py-3">
+      <Outlet />
+    </div>
+
+    // </SSRProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

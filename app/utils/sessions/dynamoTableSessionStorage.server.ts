@@ -7,7 +7,7 @@ import {
   GetItemCommand,
   PutItemCommand,
 } from "@aws-sdk/client-dynamodb";
-import { marshall } from "@aws-sdk/util-dynamodb";
+import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
 const client = new DynamoDBClient();
 
@@ -36,12 +36,13 @@ export const createDynamoTableSessionStorage = ({
       return data.user.Username;
     },
     async readData(id) {
-      return await client.send(
+      const result = await client.send(
         new GetItemCommand({
           TableName: Resource.Session.name,
           Key: marshall({ Username: id }),
         })
       );
+      return result.Item ? unmarshall(result.Item) : {};
     },
     async updateData(id, data, expires) {
       console.log("update data called");

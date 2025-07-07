@@ -9,3 +9,11 @@ export const session = new sst.aws.Dynamo("Session", {
   primaryIndex: { hashKey: "Username" },
   ttl: "expires",
 });
+
+export const postsTable = new sst.aws.Dynamo("Posts", {
+  fields: {
+    postId: "string",
+    userId: "string",
+  },
+  primaryIndex: { hashKey: "userId", rangeKey: "postId" },
+});

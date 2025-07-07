@@ -9,23 +9,32 @@ import { Resource } from "sst";
 
 const cognitoClient = new CognitoIdentityProviderClient({});
 
-export const authenticator = new Authenticator<GetUserCommandOutput>();
+type AuthenticatorReturnType = {
+  user: GetUserCommandOutput;
+  refreshToken: string;
+};
+
+export const authenticator = new Authenticator<AuthenticatorReturnType>();
 
 authenticator.use(
   new OAuth2Strategy(
     {
       clientId: Resource.UserPoolClient.id,
       clientSecret: Resource.UserPoolClient.secret,
-
       authorizationEndpoint:
-        "https://eu-west-2ybro65asr.auth.eu-west-2.amazoncognito.com/oauth2/authorize",
+        "https://gw-assessment-auth.auth.eu-west-2.amazoncognito.com/oauth2/authorize",
       tokenEndpoint:
-        "https://eu-west-2ybro65asr.auth.eu-west-2.amazoncognito.com/oauth2/token",
+        "https://gw-assessment-auth.auth.eu-west-2.amazoncognito.com/oauth2/token",
       redirectURI: `http://localhost:5173/auth/callback`,
     },
     async ({ tokens }) => {
+      //   console.log(tokens);
       const AccessToken = tokens.accessToken();
-      return await cognitoClient.send(new GetUserCommand({ AccessToken }));
+      const refreshToken = tokens.refreshToken();
+      const user = await cognitoClient.send(
+        new GetUserCommand({ AccessToken })
+      );
+      return { user, refreshToken };
     }
   ),
   "cognito"
