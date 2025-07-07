@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "Api": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
     "CookieSecret": {
       "type": "sst.sst.Secret"
       "value": string
@@ -16,6 +20,10 @@ declare module "sst" {
     "IdentityPool": {
       "id": string
       "type": "sst.aws.CognitoIdentityPool"
+    }
+    "Posts": {
+      "name": string
+      "type": "sst.aws.Dynamo"
     }
     "Session": {
       "name": string

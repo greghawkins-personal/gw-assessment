@@ -1,10 +1,11 @@
+import { api } from "./api";
 import { userPool, identityPool, userPoolClient } from "./auth";
 import { session, cookieSecret } from "./storage";
 
 const region = aws.getRegionOutput().name;
 
 export const frontend = new sst.aws.React("Frontend", {
-  link: [session, userPoolClient, cookieSecret],
+  link: [session, userPoolClient, cookieSecret, api, identityPool, userPool],
   environment: {
     VITE_REGION: region,
     VITE_USER_POOL_ID: userPool.id,
