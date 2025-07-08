@@ -15,6 +15,8 @@ export default $config({
     await import("./infra/web");
     const auth = await import("./infra/auth");
     const event = await import("./infra/bus");
+
+    // Workaround for the circular dependecy between the event bus and posts table
     event.bus.subscribe(
       "ApprovalResponseEvent",
       {
