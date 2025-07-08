@@ -1,24 +1,19 @@
-import { Resource } from "sst";
 import type { Route } from "./+types/create-post";
 import { Button, Form, Stack } from "react-bootstrap";
 import { redirect, useFetcher } from "react-router";
 import { Posts } from "client/posts/posts.server";
 import { useState } from "react";
+import LoaderButton from "~/components/LoaderButton";
 
 export const action = async ({ request }: Route.LoaderArgs) => {
-  //   const { AccessToken } = await authenticator.authenticate("cognito", request);
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  console.log("SUBMITTED");
-  console.log(JSON.stringify(updates));
-  console.log(Resource.Api.url);
+
   await Posts.create(request, {
     title: updates.title.toString(),
     content: updates.content.toString(),
   });
   return redirect("/");
-  //   console.log(`Response ${JSON.stringify(response)}`);
-  // call the api
 };
 
 const CreatePost = () => {
@@ -28,8 +23,8 @@ const CreatePost = () => {
 
   return (
     <div className="NewPost">
-      <div className="NewNote">
-        <Form>
+      <Form>
+        <Stack gap={3}>
           <Form.Group controlId="title">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -48,8 +43,8 @@ const CreatePost = () => {
             />
           </Form.Group>
 
-          <Stack>
-            <Button
+          <Stack gap={1}>
+            <LoaderButton
               size="lg"
               type="button"
               onClick={() => {
@@ -60,13 +55,14 @@ const CreatePost = () => {
                   }
                 );
               }}
-              variant="primary"
+              disabled={!content && !title}
+              isLoading={fetcher.state !== "idle"}
             >
               Create
-            </Button>
+            </LoaderButton>
           </Stack>
-        </Form>
-      </div>
+        </Stack>
+      </Form>
     </div>
   );
 };

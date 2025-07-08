@@ -11,7 +11,6 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SSRProvider } from "react-bootstrap";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -50,12 +49,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    // <SSRProvider>
     <div className="App container py-3">
       <Outlet />
     </div>
-
-    // </SSRProvider>
   );
 }
 
