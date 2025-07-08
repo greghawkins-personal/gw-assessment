@@ -1,3 +1,5 @@
+import { bus } from "./bus";
+
 // Secrets
 export const cookieSecret = new sst.Secret("CookieSecret");
 
@@ -13,7 +15,29 @@ export const session = new sst.aws.Dynamo("Session", {
 export const postsTable = new sst.aws.Dynamo("Posts", {
   fields: {
     postId: "string",
-    userId: "string",
+    isApproved: "number",
+    createdAt: "number",
   },
-  primaryIndex: { hashKey: "userId", rangeKey: "postId" },
+  primaryIndex: {
+    hashKey: "postId",
+  },
+  globalIndexes: {
+    ApprovedIndex: { hashKey: "isApproved", rangeKey: "createdAt" },
+  },
+  stream: "new-image",
 });
+
+postsTable.subscribe(
+  "PostsSubscribe",
+  {
+    handler: "functions/stream.main",
+    link: [bus],
+  },
+  {
+    filters: [
+      {
+        eventName: ["INSERT"],
+      },
+    ],
+  }
+);

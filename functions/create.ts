@@ -19,12 +19,12 @@ export const main = Util.handler(async (event) => {
   const params = {
     TableName: Resource.Posts.name,
     Item: {
-      // The attributes of the item to be created
+      postId: uuid.v1(),
       userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId,
-      postId: uuid.v1(), // A unique uuid
-      content: data.content, // Parsed from request body
-      title: data.title, // Parsed from request body
-      createdAt: Date.now(), // Current Unix timestamp
+      content: data.content,
+      title: data.title,
+      isApproved: 0,
+      createdAt: Date.now(),
     },
   };
 

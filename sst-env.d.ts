@@ -21,6 +21,11 @@ declare module "sst" {
       "id": string
       "type": "sst.aws.CognitoIdentityPool"
     }
+    "MyBus": {
+      "arn": string
+      "name": string
+      "type": "sst.aws.Bus"
+    }
     "Posts": {
       "name": string
       "type": "sst.aws.Dynamo"
