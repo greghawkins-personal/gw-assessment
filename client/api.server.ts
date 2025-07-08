@@ -32,7 +32,9 @@ export const getCredentials = async (request: Request) => {
   const credentials = fromCognitoIdentityPool({
     identityPoolId: Resource.IdentityPool.id,
     logins: {
-      ["cognito-idp.eu-west-2.amazonaws.com/eu-west-2_lKOuCmIBC"]: IdToken,
+      [`cognito-idp.${import.meta.env.VITE_REGION}.amazonaws.com/${
+        Resource.UserPool.id
+      }`]: IdToken,
     },
   });
 
