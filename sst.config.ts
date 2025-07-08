@@ -10,10 +10,21 @@ export default $config({
     };
   },
   async run() {
-    await import("./infra/storage");
+    const storage = await import("./infra/storage");
     await import("./infra/api");
     await import("./infra/web");
     const auth = await import("./infra/auth");
+    const event = await import("./infra/bus");
+    event.bus.subscribe(
+      "ApprovalResponseEvent",
+      {
+        handler: "functions/event.main",
+        link: [storage.postsTable],
+      },
+      {
+        pattern: { detailType: ["ApprovalResponse"] },
+      }
+    );
 
     return {
       UserPool: auth.userPool.id,
