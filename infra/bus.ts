@@ -15,8 +15,3 @@ bus.subscribe(
     },
   }
 );
-
-// const approvalResponseFunction = new sst.aws.Function("ApprovalResponseEvent", {
-//   handler: "functions/event.main",
-//   link: [postsTable],
-// });
