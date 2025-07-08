@@ -30,6 +30,10 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
+    "PostsArchive": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "Session": {
       "name": string
       "type": "sst.aws.Dynamo"
