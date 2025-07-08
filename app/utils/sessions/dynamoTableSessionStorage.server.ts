@@ -48,10 +48,11 @@ export const createDynamoTableSessionStorage = ({
       console.log("update data called");
     },
     async deleteData(id) {
+      console.log(`DELETED ID: ${id})`);
       await client.send(
         new DeleteItemCommand({
           TableName: Resource.Session.name,
-          Key: marshall({ id }),
+          Key: marshall({ Username: id }),
         })
       );
     },

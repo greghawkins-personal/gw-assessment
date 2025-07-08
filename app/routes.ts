@@ -12,4 +12,5 @@ export default [
     index("./routes/home.tsx"),
   ]),
   route("auth/callback", "routes/auth.callback.tsx"),
+  route("login", "routes/login.tsx"),
 ] satisfies RouteConfig;
