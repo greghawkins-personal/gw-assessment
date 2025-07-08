@@ -16,6 +16,8 @@ export const main = Util.handler(async (event) => {
     data = JSON.parse(event.body);
   }
 
+  const expires = new Date();
+
   const params = {
     TableName: Resource.Posts.name,
     Item: {
@@ -25,6 +27,7 @@ export const main = Util.handler(async (event) => {
       title: data.title,
       isApproved: 0,
       createdAt: Date.now(),
+      expires: expires.setDate(expires.getDate() + 30).valueOf(),
     },
   };
 
