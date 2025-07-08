@@ -21,14 +21,15 @@ authenticator.use(
     {
       clientId: Resource.UserPoolClient.id,
       clientSecret: Resource.UserPoolClient.secret,
-      authorizationEndpoint:
-        "https://gw-assessment-auth.auth.eu-west-2.amazoncognito.com/oauth2/authorize",
-      tokenEndpoint:
-        "https://gw-assessment-auth.auth.eu-west-2.amazoncognito.com/oauth2/token",
-      redirectURI: `http://localhost:5173/auth/callback`,
+      authorizationEndpoint: `https://${
+        import.meta.env.VITE_USER_POOL_DOMAIN
+      }.auth.eu-west-2.amazoncognito.com/oauth2/authorize`,
+      tokenEndpoint: `https://${
+        import.meta.env.VITE_USER_POOL_DOMAIN
+      }.auth.eu-west-2.amazoncognito.com/oauth2/token`,
+      redirectURI: `${import.meta.env.VITE_CALLBACK_URL}`,
     },
     async ({ tokens }) => {
-      //   console.log(tokens);
       const AccessToken = tokens.accessToken();
       const refreshToken = tokens.refreshToken();
       const user = await cognitoClient.send(

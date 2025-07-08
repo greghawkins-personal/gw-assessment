@@ -31,6 +31,7 @@ export default $config({
       Region: aws.getRegionOutput().name,
       IdentityPool: auth.identityPool.id,
       UserPoolClient: auth.userPoolClient.id,
+      UserPoolDomain: auth.domain.domain,
     };
   },
 });

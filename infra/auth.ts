@@ -7,15 +7,23 @@ export const userPool = new sst.aws.CognitoUserPool("UserPool", {
 });
 
 export const domain = new aws.cognito.UserPoolDomain("UserPoolDomain", {
-  domain: "gw-assessment-auth",
+  domain:
+    $app.stage === "production"
+      ? "gw-assessment-auth"
+      : `${$app.stage}-gw-assessment-auth`,
   userPoolId: userPool.id,
 });
+
+export const callbackUrl =
+  $app.stage === "production"
+    ? "https://gw-assessment.com/auth/callback"
+    : "http://localhost:5173/auth/callback";
 
 export const userPoolClient = userPool.addClient("UserPoolClient", {
   transform: {
     client: {
       generateSecret: true,
-      callbackUrls: ["http://localhost:5173/auth/callback"],
+      callbackUrls: [callbackUrl],
     },
   },
 });
